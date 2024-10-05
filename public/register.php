@@ -11,6 +11,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){ // any form submission using the POST me
     
 
     if(!empty($id) && !empty($name) && !empty($email) && !empty($password)){
+
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         $sql = "INSERT INTO users(id,studentname,phone,email,password)
@@ -37,6 +38,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){ // any form submission using the POST me
     }else{
         $error_message = "Please fill out all fields.";
     }
+    $con->close();
         
 }
 ?>

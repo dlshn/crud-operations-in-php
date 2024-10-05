@@ -1,3 +1,10 @@
+<?php  // check user is logged in
+session_start();
+if (!isset($_SESSION['id'])) {
+    header('Location: login.php');
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +15,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
+    <div class="container" style="max-width: 600px;">
         <h1 class="text-center">Student Data</h1>
         <table class="table table-striped table-dark">
             <thead>
@@ -23,6 +30,7 @@
             <tbody>
 
                 <?php
+                
                 include '../src/config.php';
 
                 $sql = "SELECT id,studentname,phone,email FROM users";
@@ -36,13 +44,18 @@
                         <td>". htmlspecialchars($row['studentname']) ."</td>
                         <td>". htmlspecialchars($row['phone']) ."</td>
                         <td>". htmlspecialchars($row['email']) ."</td>
-                        
-                        </tr>";
+                        <td>";
+                        if($_SESSION['id']==$row['id'] && $_SESSION['id']){
+                            echo "<button class='btn btn-success'>Update</button>";
+                        }
+                        echo"</td> </tr>";
 
                     }
                 }else{
                     echo "<tr><td colspan='4' class='text-center'>No Data Available</td></tr>";
                 }
+
+                $con->close();
 
                 ?>
 
@@ -51,8 +64,8 @@
             </tbody>
         </table>
         <div class="text-center">
-                    <a href="register.php"><button class="btn btn-primary">Register</button></a>
-                    <a href=""></a>
+                    <a href="register.php"><button class="btn btn-primary mr-5">Register</button></a>
+                    <a href="logout.php"><button class="btn btn-danger">Logout</button></a>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

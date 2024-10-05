@@ -29,9 +29,9 @@ td, th{
 }
 
 /* Button styling */
-.btn-primary {
+.btn-primary, .btn-danger {
     margin-top: 10px;
-    width: 20%;
+    width: 30%;
 }
 
 /* Checkbox spacing */
