@@ -1,3 +1,38 @@
+<?php
+require_once '../src/config.php';
+session_start();
+$error_message = '';
+if ($_SERVER['REQUEST_METHOD'] == 'POST') { // check POST method form submiton
+    $id = $_POST['id'];
+    $password = $_POST['password'];
+
+    $sql = "SELECT id,password FROM users WHERE id = ?";
+    $stmt = mysqli_prepare($con, $sql); //prepare statemnt use to prevent SQL injection
+    mysqli_stmt_bind_param($stmt,"s", $id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);  // stored all rows from users table
+
+    if($row = mysqli_fetch_assoc($result)) {// "fetch_assoc" fetches row of the query result
+
+        if(password_verify($password, $row["password"])) {
+            header("Location: index.php");
+            exit();
+
+        }else{
+            $error_message = "Incorrect password";
+        }
+
+    }else{
+        $error_message = "Incorrect Id";
+    }
+
+} 
+
+     
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,6 +54,11 @@
                 <label for="password">Password</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
             </div>
+
+            <?php if (!empty($error_message)): ?>
+                        <div style="color: red;" class="text-center mt-3"><?php echo htmlspecialchars($error_message); ?></div>
+            <?php endif; ?>
+
             <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary ">Login</button>
             </div>
