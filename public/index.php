@@ -17,6 +17,7 @@
                     <th scope="col">Name</th>
                     <th scope="col">Phone</th>
                     <th scope="col">email</th>
+                    <th scope="col">operation</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,6 +36,7 @@
                         <td>". htmlspecialchars($row['studentname']) ."</td>
                         <td>". htmlspecialchars($row['phone']) ."</td>
                         <td>". htmlspecialchars($row['email']) ."</td>
+                        
                         </tr>";
 
                     }
@@ -50,6 +52,7 @@
         </table>
         <div class="text-center">
                     <a href="register.php"><button class="btn btn-primary">Register</button></a>
+                    <a href=""></a>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
