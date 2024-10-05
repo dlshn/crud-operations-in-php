@@ -15,7 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // check POST method form submiton
     if($row = mysqli_fetch_assoc($result)) {// "fetch_assoc" fetches row of the query result
 
         if(password_verify($password, $row["password"])) {
-            header("Location: index.php");
+
+            $_SESSION['id'] = $id;           
+            header("Location: index.php"); // redirect to index page
             exit();
 
         }else{
@@ -25,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // check POST method form submiton
     }else{
         $error_message = "Incorrect Id";
     }
+    $con->close();
 
 } 
 
