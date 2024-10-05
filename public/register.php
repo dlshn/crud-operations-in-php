@@ -51,9 +51,9 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){ // any form submission using the POST me
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
+    <div class="container" style="max-width: 500px;">
         <h1 class="text-center">Student Registration</h1>
-        <form action="student.php" method="POST">
+        <form action="register.php" method="POST">
             <div class="form-group">
                 <label for="id">StudentId</label>
                 <input type="id" class="form-control" id="id" name="id" placeholder="id" required>
@@ -84,7 +84,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){ // any form submission using the POST me
             <?php endif; ?>
             
             <div class="d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary ">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
             <p class="text-center mt-2">Already have an account? <a href="login.php">Log in here</a></p>
             
