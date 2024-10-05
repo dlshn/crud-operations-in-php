@@ -2,45 +2,51 @@
 require_once '../src/config.php'; // include "../src/config.php";
 $error_message = "";
 
-if($_SERVER["REQUEST_METHOD"]=="POST"){ // any form submission using the POST method
-    $id = trim($_POST['id']);
-    $name = trim($_POST['name']);
-    $phone = trim($_POST['phone']);
-    $email = trim($_POST['email']);
-    $password = trim($_POST['password']);
+    if($_SERVER["REQUEST_METHOD"]=="POST"){ // any form submission using the POST method
+        $id = trim($_POST['id']);
+        $name = trim($_POST['name']);
+        $phone = trim($_POST['phone']);
+        $email = trim($_POST['email']);
+        $password = trim($_POST['password']);
+        if(isset($_POST["check"])) {
     
-
-    if(!empty($id) && !empty($name) && !empty($email) && !empty($password)){
-
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-        $sql = "INSERT INTO users(id,studentname,phone,email,password)
-        VALUES (?,?,?,?,?)";
-
-        $stmt=mysqli_prepare($con,$sql); // prepare the statement
-
-        if($stmt){
-            // bind actual values to the placeholders (?)
-            // that may be use another methods like "$stmt->bind_param()"
-            mysqli_stmt_bind_param($stmt,"sssss", $id, $name, $phone, $email, $hashed_password); 
-            
-            if(mysqli_stmt_execute($stmt)){ // Execute the statement
-                header("Location: login.php");
-            }else{
-                if ($stmt->errno == 1062){
-                    $error_message = "Your email address or StudentId already use.!";
-                }
-            }
-        }
-        else{
-            die(mysqli_error($con)); // If the query fails, stop the script and show the error
-        }
-    }else{
-        $error_message = "Please fill out all fields.";
-    }
-    $con->close();
+            if(!empty($id) && !empty($name) && !empty($email) && !empty($password)){
         
-}
+                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        
+                $sql = "INSERT INTO users(id,studentname,phone,email,password)
+                VALUES (?,?,?,?,?)";
+        
+                $stmt=mysqli_prepare($con,$sql); // prepare the statement
+        
+                if($stmt){
+                    // bind actual values to the placeholders (?)
+                    // that may be use another methods like "$stmt->bind_param()"
+                    mysqli_stmt_bind_param($stmt,"sssss", $id, $name, $phone, $email, $hashed_password); 
+                    
+                    if(mysqli_stmt_execute($stmt)){ // Execute the statement
+                        header("Location: login.php");
+                        exit();
+                    }else{
+                        if ($stmt->errno == 1062){
+                            $error_message = "Your email address or StudentId already use.!";
+                        }
+                    }
+                }
+                else{
+                    die(mysqli_error($con)); // If the query fails, stop the script and show the error
+                }
+            }else{
+                $error_message = "Please fill out all fields.";
+            }
+        
+        }else{
+            $error_message = "You must agree to the terms by checking the box.";
+        }
+            
+    }
+
+    $con->close();
 ?>
 
 <!DOCTYPE html>
@@ -77,8 +83,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){ // any form submission using the POST me
                 <input type="password" class="form-control" id="password" name="password" placeholder="password" required>
             </div>
             <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="check" required>
-                <label class="form-check-label" for="check">Check me out</label>
+                <input class="form-check-input" type="checkbox"  name="check" required>
+                <label >Check me out</label>
             </div>
 
             <?php if (!empty($error_message)): ?>

@@ -6,13 +6,19 @@ body{
  .container {
     color: #ffffff;
     
-    max-width: 400px;
+    /* display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: auto; Auto width depending on content */
+    
     margin: 50px auto; /* Center horizontally and add top margin */
     padding: 20px;
     background-color: #5d5d5d;
     border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9); /* Border shadow */
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9); /* Border shadow  */
 }
+
+
 
 thead th {
     font-weight: bold;
@@ -31,7 +37,7 @@ td, th{
 /* Button styling */
 .btn-primary, .btn-danger {
     margin-top: 10px;
-    width: 30%;
+    width: 20%;
 }
 
 /* Checkbox spacing */
