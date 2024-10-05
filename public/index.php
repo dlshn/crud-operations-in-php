@@ -13,9 +13,19 @@ if (!isset($_SESSION['id'])) {
     <title>Student Data</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .container{
+            /* display: inline-block; */
+            min-width: 500px; /* Minimum width */
+            max-width: 800px; /* Maximum width */
+            width: auto; /* Let width auto-adjust within limits */
+            margin: 50px auto;
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container" style="max-width: 600px;">
+    <div class="container" style="">
         <h1 class="text-center">Student Data</h1>
         <table class="table table-striped table-dark">
             <thead>
@@ -45,8 +55,9 @@ if (!isset($_SESSION['id'])) {
                         <td>". htmlspecialchars($row['phone']) ."</td>
                         <td>". htmlspecialchars($row['email']) ."</td>
                         <td>";
-                        if($_SESSION['id']==$row['id'] && $_SESSION['id']){
-                            echo "<button class='btn btn-success'>Update</button>";
+                        if($_SESSION['id']==$row['id'] && isset($_SESSION['id'])){
+                            $id = $row['id'];
+                            echo "<a href='update.php?id=$id' class='btn btn-success'>Update</a>";
                         }
                         echo"</td> </tr>";
 
@@ -63,10 +74,11 @@ if (!isset($_SESSION['id'])) {
    
             </tbody>
         </table>
-        <div class="text-center">
-                    <a href="register.php"><button class="btn btn-primary mr-5">Register</button></a>
-                    <a href="logout.php"><button class="btn btn-danger">Logout</button></a>
+        <div class="d-flex justify-content-center">
+            <a href="register.php" class="btn btn-primary mr-5">Register</a>
+            <a href="logout.php" class="btn btn-danger">Logout</a>
         </div>
+
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7W3mgPxhU9K/ScQsAP7W3mgPxhU9K/ScQsAP7W3mgPxhU9K/ScQsAP7W3mgPxhU9K/ScQsAP7W3mgPxhU9K" crossorigin="anonymous"></script>
