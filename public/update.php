@@ -2,6 +2,12 @@
 include '../src/config.php';
 session_start();
 
+if (!isset($_SESSION['id'])) {  // check student is logged in
+    header('location: studentlogin.php');
+    exit();
+
+}
+
 $id = $_GET['id'];
 $name = '';
 $phone = '';
@@ -34,9 +40,9 @@ if(isset($id)){
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
+    <div class="container" style="max-width: 500px;">
     <h1 class="text-center">Update User Data</h1>
-    <form action="update.php?id=<?php echo $id; ?>" method="POST">
+    <form action="update.php?id=<?php echo urlencode($id); ?>" method="POST">
         <!-- <div class="form-group">
             <label for="id">StudentId</label>
             <input type="id" class="form-control" id="id" name="id" value="<?php echo htmlspecialchars($id); ?>" required>
@@ -72,7 +78,7 @@ if(isset($id)){
 $error_message = '';
 
 if(isset($_POST['update'])){
-    // $id = $_POST['id'];
+    $id = $_GET['id'];
     $name = $_POST['studentname'];
     $phone = $_POST['phone'];
     $email = $_POST['email'];
@@ -81,10 +87,9 @@ if(isset($_POST['update'])){
     $stmt = mysqli_prepare($con, $sql);
     mysqli_stmt_bind_param($stmt,"ssss", $name, $phone, $email, $id);
     
-    
     if(mysqli_stmt_execute($stmt)){
         
-        header("Location: index.php");
+        header("Location: studenthome.php");
         exit();
     }else{
         $error_message = "Not update user data";
