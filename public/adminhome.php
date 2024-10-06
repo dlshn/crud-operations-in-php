@@ -1,8 +1,9 @@
 <?php  // check user is logged in
 session_start();
-if (!isset($_SESSION['id'])) {
-    header('Location: login.php');
+if (!isset($_SESSION['admin'])) {
+    header('Location: adminlogin.php');
     exit();
+      
 }
 ?>
 <!DOCTYPE html>
@@ -10,7 +11,7 @@ if (!isset($_SESSION['id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Data</title>
+    <title>Admin home</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <style>
@@ -22,6 +23,10 @@ if (!isset($_SESSION['id'])) {
             margin: 50px auto;
             padding: 20px;
         }
+        .btn-danger{
+            width: 80%;
+        }
+
     </style>
 </head>
 <body>
@@ -55,9 +60,10 @@ if (!isset($_SESSION['id'])) {
                         <td>". htmlspecialchars($row['phone']) ."</td>
                         <td>". htmlspecialchars($row['email']) ."</td>
                         <td>";
-                        if($_SESSION['id']==$row['id'] && isset($_SESSION['id'])){
-                            $id = $row['id'];
-                            echo "<a href='update.php?id=$id' class='btn btn-success'>Update</a>";
+                        if(isset($_SESSION['admin'])){
+                            $id= $row['id'];
+                            $encoded_id = urlencode($id);
+                            echo "<a href='delete.php?id=$encoded_id' class='btn btn-danger'>Delete</a>";
                         }
                         echo"</td> </tr>";
 
@@ -75,8 +81,8 @@ if (!isset($_SESSION['id'])) {
             </tbody>
         </table>
         <div class="d-flex justify-content-center">
-            <a href="register.php" class="btn btn-primary mr-5">Register</a>
-            <a href="logout.php" class="btn btn-danger">Logout</a>
+            <!-- <a href="register.php" class="btn btn-primary mr-5">Register</a> -->
+            <a href="logoutadmin.php" style="width:30%" class="btn btn-danger">Logout</a>
         </div>
 
     </div>

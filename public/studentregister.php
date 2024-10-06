@@ -25,7 +25,7 @@ $error_message = "";
                     mysqli_stmt_bind_param($stmt,"sssss", $id, $name, $phone, $email, $hashed_password); 
                     
                     if(mysqli_stmt_execute($stmt)){ // Execute the statement
-                        header("Location: login.php");
+                        header("Location: studentlogin.php");
                         exit();
                     }else{
                         if ($stmt->errno == 1062){
@@ -54,14 +54,14 @@ $error_message = "";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>student register</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container" style="max-width: 500px;">
         <h1 class="text-center">Student Registration</h1>
-        <form action="register.php" method="POST">
+        <form action="studentregister.php" method="POST">
             <div class="form-group">
                 <label for="id">StudentId</label>
                 <input type="id" class="form-control" id="id" name="id" placeholder="id" required>
@@ -94,7 +94,8 @@ $error_message = "";
             <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
-            <p class="text-center mt-2">Already have an account? <a href="login.php">Log in here</a></p>
+            <p class="text-center mt-2">Already have an account? <a href="studentlogin.php">Log in here</a></p>
+            <p class="text-center mt-2">Login for Admin <a href="adminlogin.php">Click here</a></p>
             
         </form>
     </div>
